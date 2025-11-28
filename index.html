@@ -1,222 +1,98 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Instagram</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#fafafa;
-      --card:#ffffff;
-      --text:#262626;
-      --muted:#8e8e8e;
-      --border:#dbdbdb;
-      --blue:#0095f6;
-      --blue-hover:#007bd1;
-      --link:#00376b;
+    :root {
+      --bg: #fafafa;
+      --card: #fff;
+      --text: #262626;
+      --border: #dbdbdb;
+      --blue: #0095f6;
+      --blue-hover: #007bd1;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      color:var(--text);
-      background:var(--bg);
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
     }
-    /* Top right "Terminer la mise à jour" */
-    .topbar{
-      position:fixed;
-      right:24px;
-      top:16px;
-      z-index:10;
+    .topbar {
+      position: fixed;
+      top: 16px;
+      right: 24px;
     }
-    .update-btn{
-      background:var(--blue);
-      color:#fff;
-      border:none;
-      border-radius:8px;
-      padding:10px 14px;
-      font-weight:600;
-      font-size:14px;
-      cursor:pointer;
-      box-shadow:0 1px 2px rgba(0,0,0,.08);
+    .update-btn {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
     }
-    .update-btn:hover{background:var(--blue-hover)}
-
-    /* Layout */
-    .container{
-      max-width:935px;
-      margin:60px auto 40px;
-      padding:0 24px;
-      display:grid;
-      grid-template-columns:1.1fr 1fr;
-      gap:32px;
-      align-items:start;
+    .update-btn:hover {
+      background: var(--blue-hover);
     }
-    @media (max-width:920px){
-      .container{grid-template-columns:1fr}
-      .gallery{display:none}
-      .topbar{position:static; margin:16px 24px 0}
+    .container {
+      max-width: 400px;
+      margin: 100px auto 40px;
+      padding: 0 24px;
+      text-align: center;
     }
-
-    /* Left photo collage */
-    .gallery{
-      position:relative;
-      border-radius:24px;
-      overflow:hidden;
-      box-shadow:0 8px 24px rgba(0,0,0,.08);
-      background:#fff;
-      border:1px solid var(--border);
+    .logo {
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 24px;
     }
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      grid-auto-rows:140px;
-      gap:8px;
-      padding:12px;
-      background:linear-gradient(180deg, #fff, #f7f7f7);
+    .form {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
-    .cell{
-      border-radius:12px;
-      overflow:hidden;
-      position:relative;
-      background:#eee;
+    .form input {
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 14px;
     }
-    /* Placeholder imagery using gradients/emojis */
-    .cell::before{
-      content:"";
-      position:absolute; inset:0;
-      background:linear-gradient(135deg, rgba(255,200,150,.35), rgba(255,100,150,.35));
-      mix-blend-mode:multiply;
+    .form button {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
     }
-    .cell span{
-      position:absolute;
-      font-size:28px;
-      line-height:1;
-      transform:rotate(-8deg);
-      filter:drop-shadow(0 2px 2px rgba(0,0,0,.2));
+    .form button:hover {
+      background: var(--blue-hover);
     }
-    .cell:nth-child(1) span{content:""; left:12px; top:12px}
-    .emoji{position:absolute; right:10px; bottom:10px; font-size:24px}
-    /* Arrange a few decorative emojis */
-    .cell:nth-child(2) .emoji{right:auto; left:10px; bottom:auto; top:10px}
-    .cell:nth-child(5) .emoji{font-size:28px}
-    .cell:nth-child(7) .emoji{font-size:22px}
-    .cell:nth-child(8) .emoji{font-size:26px}
-    .cell:nth-child(9) .emoji{font-size:24px}
-
-    .gallery-header{
-      position:absolute; left:16px; top:12px;
-      display:flex; align-items:center; gap:8px;
-      padding:8px 10px; background:rgba(255,255,255,.85);
-      border:1px solid var(--border); border-radius:12px;
-      backdrop-filter:saturate(180%) blur(6px);
+    .image-box {
+      margin-top: 40px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    .insta-logo{
-      width:20px; height:20px;
-      border-radius:4px;
-      background:conic-gradient(from 180deg at 50% 50%, #f58529, #feda77, #dd2a7b, #8134af, #515bd4, #f58529);
-      box-shadow:inset 0 0 0 2px #fff;
+    .image-box img {
+      width: 100%;
+      display: block;
     }
-    .brand{
-      font-weight:600; font-size:14px; letter-spacing:.2px;
+    .footer {
+      margin-top: 40px;
+      font-size: 12px;
+      color: #8e8e8e;
     }
-
-    /* Right card (login) */
-    .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:8px;
-      padding:24px;
-      box-shadow:0 4px 12px rgba(0,0,0,.06);
-    }
-    .title{
-      font-weight:600;
-      font-size:24px;
-      text-align:center;
-      margin:4px 0 20px;
-    }
-    .form{
-      display:flex; flex-direction:column; gap:10px;
-    }
-    .field{
-      display:flex; align-items:center;
-      border:1px solid var(--border);
-      border-radius:6px;
-      padding:10px 12px;
-      background:#fafafa;
-    }
-    .field input{
-      width:100%;
-      border:none;
-      outline:none;
-      background:transparent;
-      font-size:14px;
-      color:var(--text);
-    }
-    .btn{
-      background:var(--blue);
-      color:#fff;
-      border:none;
-      border-radius:8px;
-      padding:10px 14px;
-      font-weight:600;
-      font-size:14px;
-      cursor:pointer;
-    }
-    .btn:hover{background:var(--blue-hover)}
-    .divider{
-      display:flex; align-items:center; gap:12px;
-      margin:8px 0;
-      color:var(--muted); font-size:12px;
-    }
-    .divider::before,.divider::after{
-      content:""; flex:1; height:1px; background:var(--border);
-    }
-    .forgot{
-      text-align:center; margin-top:8px;
-    }
-    .forgot a{color:var(--link); text-decoration:none; font-size:12px; font-weight:600}
-    .signup{
-      margin-top:12px;
-      border:1px solid var(--border);
-      border-radius:8px;
-      padding:14px;
-      text-align:center;
-      font-size:14px;
-      background:#fff;
-    }
-    .signup a{color:var(--blue); text-decoration:none; font-weight:600}
-
-    /* Footer */
-    .footer{
-      max-width:935px;
-      margin:24px auto 40px;
-      padding:0 24px;
-      color:var(--muted);
-      font-size:12px;
-    }
-    .links{
-      display:flex; flex-wrap:wrap; gap:10px 16px;
-      margin-bottom:10px;
-    }
-    .links a{
-      color:var(--muted);
-      text-decoration:none;
-      white-space:nowrap;
-    }
-    .lang{
-      display:flex; align-items:center; gap:8px;
-    }
-    .lang select{
-      border:none; background:transparent; color:var(--muted);
-      font-size:12px; outline:none; cursor:pointer;
-    }
-
-    /* Small tweaks */
-    .hint{font-size:12px; color:var(--muted)}
   </style>
 </head>
 <body>
@@ -225,88 +101,20 @@
   </div>
 
   <main class="container">
-    <!-- Left collage -->
-    <section class="gallery" aria-label="Collage de photos">
-      <div class="gallery-header">
-        <div class="insta-logo" aria-hidden="true"></div>
-        <div class="brand">Instagram</div>
-      </div>
-      <div class="grid">
-        <!-- 9 cells to mimic a collage -->
-        <div class="cell"><span class="emoji">💖</span></div>
-        <div class="cell"><span class="emoji">⭐️</span></div>
-        <div class="cell"><span class="emoji">😊</span></div>
-        <div class="cell"><span class="emoji">📸</span></div>
-        <div class="cell"><span class="emoji">💬</span></div>
-        <div class="cell"><span class="emoji">🎉</span></div>
-        <div class="cell"><span class="emoji">✨</span></div>
-        <div class="cell"><span class="emoji">❤️</span></div>
-        <div class="cell"><span class="emoji">🌟</span></div>
-      </div>
-    </section>
+    <div class="logo">Instagram</div>
+    <form class="form">
+      <input type="text" placeholder="Num. téléphone, nom de profil ou e-mail" />
+      <input type="password" placeholder="Mot de passe" />
+      <button type="submit">Se connecter</button>
+    </form>
 
-    <!-- Right login card -->
-    <section class="card" aria-label="Connexion Instagram">
-      <h1 class="title">Instagram</h1>
-
-      <form class="form" action="#" method="post" novalidate>
-        <label class="field" aria-label="Numéro de téléphone, nom de profil ou e-mail">
-          <input type="text" name="identifier" placeholder="Num. téléphone, nom de profil ou e-mail" autocomplete="username" />
-        </label>
-
-        <label class="field" aria-label="Mot de passe">
-          <input type="password" name="password" placeholder="Mot de passe" autocomplete="current-password" />
-        </label>
-
-        <button class="btn" type="submit">Se connecter</button>
-
-        <div class="divider">ou</div>
-
-        <div class="forgot">
-          <a href="#">Mot de passe oublié ?</a>
-        </div>
-      </form>
-
-      <div class="signup">
-        Vous n’avez pas de compte ? <a href="#">Inscrivez-vous</a>
-      </div>
-
-      <p class="hint" style="text-align:center;margin-top:10px;">
-        Français © 2025 Instagram par Meta
-      </p>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <nav class="links" aria-label="Liens Meta et services">
-      <a href="#">Meta</a>
-      <a href="#">À propos</a>
-      <a href="#">Blog</a>
-      <a href="#">Emplois</a>
-      <a href="#">Aide</a>
-      <a href="#">API</a>
-      <a href="#">Confidentialité</a>
-      <a href="#">Conditions</a>
-      <a href="#">Lieux</a>
-      <a href="#">Instagram Lite</a>
-      <a href="#">Meta AI</a>
-      <a href="#">Articles de Meta AI</a>
-      <a href="#">Threads</a>
-      <a href="#">Importation des contacts et non-utilisateurs</a>
-      <a href="#">Meta Verified</a>
-      <a href="#">Résilier des contrats ici</a>
-    </nav>
-    <div class="lang">
-      <span>Français</span>
-      <select aria-label="Sélection de langue">
-        <option selected>Français</option>
-        <option>English</option>
-        <option>Deutsch</option>
-        <option>Español</option>
-        <option>Italiano</option>
-      </select>
-      <span>© 2025 Instagram par Meta</span>
+    <div class="image-box">
+      <img src="image-de-selfie.jpg" alt="Collage Instagram" />
     </div>
-  </footer>
+
+    <div class="footer">
+      Français © 2025 Instagram par Meta
+    </div>
+  </main>
 </body>
 </html>
