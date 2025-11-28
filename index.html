@@ -3,86 +3,108 @@
 <head>
   <meta charset="UTF-8">
   <title>Connexion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      background-color: #fafafa;
+      margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
+      background-color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
     }
+
     .container {
-      background: #fff;
-      border: 1px solid #dbdbdb;
-      padding: 40px;
-      width: 350px;
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
       text-align: center;
     }
+
     .logo {
-      font-family: 'Brush Script MT', cursive;
-      font-size: 40px;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
+
+    .logo img {
+      width: 100px;
+    }
+
     input {
       width: 100%;
-      padding: 10px;
-      margin: 5px 0;
+      padding: 12px;
+      margin: 8px 0;
       border: 1px solid #dbdbdb;
-      border-radius: 3px;
-      background: #fafafa;
+      border-radius: 5px;
+      background-color: #fafafa;
+      font-size: 14px;
     }
-    button {
+
+    .login-btn {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       background-color: #3897f0;
-      border: none;
-      border-radius: 3px;
       color: white;
+      border: none;
+      border-radius: 5px;
       font-weight: bold;
+      font-size: 14px;
       cursor: pointer;
       margin-top: 10px;
     }
-    .separator {
-      display: flex;
-      align-items: center;
-      text-align: center;
-      margin: 20px 0;
-    }
-    .separator::before, .separator::after {
-      content: "";
-      flex: 1;
-      border-bottom: 1px solid #dbdbdb;
-    }
-    .separator:not(:empty)::before {
-      margin-right: .75em;
-    }
-    .separator:not(:empty)::after {
-      margin-left: .75em;
-    }
-    .signup {
-      margin-top: 20px;
-      font-size: 14px;
-    }
-    .signup a {
-      color: #3897f0;
+
+    .forgot {
+      margin-top: 15px;
+      font-size: 13px;
+      color: #00376b;
       text-decoration: none;
+      display: block;
+    }
+
+    .create-btn {
+      margin-top: 30px;
+      padding: 12px;
+      width: 100%;
+      border: 1px solid #3897f0;
+      color: #3897f0;
+      background-color: #fff;
+      border-radius: 5px;
       font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .meta {
+      margin-top: 40px;
+      font-size: 12px;
+      color: #999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .meta img {
+      width: 20px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="logo">MonApp</div>
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
+    </div>
     <form>
-      <input type="text" placeholder="Nom d'utilisateur">
+      <input type="text" placeholder="Nom de profil, e-mail ou numéro de mobile">
       <input type="password" placeholder="Mot de passe">
-      <button type="submit">Connexion</button>
+      <button class="login-btn" type="submit">Se connecter</button>
     </form>
-    <div class="separator">OU</div>
-    <button style="background-color:#4267B2;">Se connecter avec Facebook</button>
-    <div class="signup">
-      Vous n'avez pas de compte ? <a href="#">Inscrivez-vous</a>
+    <a href="#" class="forgot">Mot de passe oublié ?</a>
+    <button class="create-btn">Créer un compte</button>
+    <div class="meta">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo.svg" alt="Meta Logo">
+      <span>Meta</span>
     </div>
   </div>
 </body>
